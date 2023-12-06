@@ -1543,7 +1543,7 @@ export class App {
             const removePromises: any[] = []
             await Promise.all(removePromises)
         } catch (e) {
-            logger.error(`❌[server]: Flowise Server shut down error: ${e}`)
+            logger.error(`❌[server]: VectrFlow Server shut down error: ${e}`)
         }
     }
 }
@@ -1574,7 +1574,7 @@ export async function getAllChatFlow(): Promise<IChatFlow[]> {
 export async function start(): Promise<void> {
     serverApp = new App()
 
-    const port = parseInt(process.env.PORT || '', 10) || 3000
+    const port = parseInt(process.env.PORT || '', 10) || 8080
     const server = http.createServer(serverApp.app)
 
     const io = new Server(server, {
@@ -1587,7 +1587,7 @@ export async function start(): Promise<void> {
     await serverApp.config(io)
 
     server.listen(port, () => {
-        logger.info(`⚡️ [server]: Flowise Server is listening at ${port}`)
+        logger.info(`⚡️ [server]: VectrFlow Server is listening at ${port}`)
     })
 }
 
