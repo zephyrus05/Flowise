@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import { useRef } from 'react'
+
 // material-ui
 import { useTheme } from '@mui/material/styles'
 import {
@@ -44,7 +45,6 @@ const AddNodes = ({ nodesData, node }) => {
     const [searchValue, setSearchValue] = useState('')
     const [nodes, setNodes] = useState({})
     const [categoryExpanded, setCategoryExpanded] = useState({})
-
     const ps = useRef()
 
     const scrollTop = () => {
@@ -86,7 +86,6 @@ const AddNodes = ({ nodesData, node }) => {
             return r
         }, Object.create(null))
 
-        // Added the categorization of "DEPRECATING" and "NEW" nodes
         categorizeVectorStores(result, accordianCategories, isFilter)
 
         setNodes(result)
@@ -115,6 +114,8 @@ const AddNodes = ({ nodesData, node }) => {
             obj['Vector Stores;NEW'] = newNodes
             accordianCategories['Vector Stores;NEW'] = isFilter ? true : false
         }
+
+        setNodes(obj)
     }
 
     const handleAccordionChange = (category) => () => {
@@ -141,7 +142,7 @@ const AddNodes = ({ nodesData, node }) => {
             sx={{
                 position: 'fixed',
                 left: 0,
-                top: 0,
+                top: '30px',
                 bottom: 0,
                 zIndex: 1000,
                 width: '250px', // Adjust the width as needed

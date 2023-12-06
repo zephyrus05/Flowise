@@ -19,7 +19,7 @@ import ViewMessagesDialog from 'ui-component/dialog/ViewMessagesDialog'
 
 // API
 import chatflowsApi from 'api/chatflows'
-
+import Logo from 'assets/images/flowise_logo.png'
 // Hooks
 import useApi from 'hooks/useApi'
 
@@ -176,6 +176,10 @@ const CanvasHeader = ({ chatflow, handleSaveFlow, handleDeleteFlow, handleLoadFl
 
     return (
         <>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                {/* Add your logo here */}
+                <img src={Logo} alt='' style={{ width: '150px', height: '50x', marginRight: '10px' }} />
+            </Box>
             <Box>
                 <ButtonBase title='Back' sx={{ borderRadius: '50%' }}>
                     <Avatar
