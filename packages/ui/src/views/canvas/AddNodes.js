@@ -140,7 +140,7 @@ const AddNodes = ({ nodesData, node }) => {
     return (
         <Paper
             sx={{
-                position: 'fixed',
+                position: 'relative',
                 left: 0,
                 top: '30px',
                 bottom: 0,
