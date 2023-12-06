@@ -58,7 +58,7 @@ const CanvasHeader = ({ chatflow, handleSaveFlow, handleDeleteFlow, handleLoadFl
             handleDeleteFlow()
         } else if (setting === 'analyseChatflow') {
             setAnalyseDialogProps({
-                title: 'Analyse Chatflow',
+                title: 'Analyse Workspace',
                 chatflow: chatflow
             })
             setAnalyseDialogOpen(true)
@@ -320,7 +320,7 @@ const CanvasHeader = ({ chatflow, handleSaveFlow, handleDeleteFlow, handleLoadFl
                         </Avatar>
                     </ButtonBase>
                 )}
-                <ButtonBase title='Save Chatflow' sx={{ borderRadius: '50%', mr: 2 }}>
+                <ButtonBase title='Save Workspace' sx={{ borderRadius: '50%', mr: 2 }}>
                     <Avatar
                         variant='rounded'
                         sx={{
@@ -371,7 +371,7 @@ const CanvasHeader = ({ chatflow, handleSaveFlow, handleDeleteFlow, handleLoadFl
             <SaveChatflowDialog
                 show={flowDialogOpen}
                 dialogProps={{
-                    title: `Save New Chatflow`,
+                    title: `Save New Workspace`,
                     confirmButtonName: 'Save',
                     cancelButtonName: 'Cancel'
                 }}
