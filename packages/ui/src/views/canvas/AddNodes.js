@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import { useRef } from 'react'
 
@@ -39,7 +39,6 @@ import { SET_COMPONENT_NODES } from 'store/actions'
 
 const AddNodes = ({ nodesData, node }) => {
     const theme = useTheme()
-    const customization = useSelector((state) => state.customization)
     const dispatch = useDispatch()
 
     const [searchValue, setSearchValue] = useState('')
@@ -80,9 +79,10 @@ const AddNodes = ({ nodesData, node }) => {
     const groupByCategory = (nodes, isFilter) => {
         const accordianCategories = {}
         const result = nodes.reduce(function (r, a) {
-            r[a.category] = r[a.category] || []
-            r[a.category].push(a)
-            accordianCategories[a.category] = isFilter ? true : false
+            const categoryKey = a.badge ? `${a.category};${a.badge}` : a.category
+            r[categoryKey] = r[categoryKey] || []
+            r[categoryKey].push(a)
+            accordianCategories[categoryKey] = isFilter ? true : false
             return r
         }, Object.create(null))
 
@@ -231,7 +231,57 @@ const AddNodes = ({ nodesData, node }) => {
                                         aria-controls={`nodes-accordion-${category}`}
                                         id={`nodes-accordion-header-${category}`}
                                     >
-                                        <Typography variant='h5'>{category}</Typography>
+                                        <Typography variant='h5'>
+                                            {category.split(';').length > 1 ? (
+                                                <div
+                                                    style={{
+                                                        display: 'flex',
+                                                        flexDirection: 'row',
+                                                        alignItems: 'center'
+                                                    }}
+                                                >
+                                                    <Typography variant='h5'>{category.split(';')[0]}</Typography>
+                                                    &nbsp;
+                                                    {category.split(';')[1] === 'DEPRECATING' ? (
+                                                        <div
+                                                            style={{
+                                                                width: 120,
+                                                                height: 20,
+                                                                borderRadius: '50%',
+                                                                backgroundColor: theme.palette.warning.main,
+                                                                display: 'flex',
+                                                                justifyContent: 'center',
+                                                                alignItems: 'center'
+                                                            }}
+                                                        >
+                                                            <Typography variant='caption' style={{ color: 'black' }}>
+                                                                {category.split(';')[1]}
+                                                            </Typography>
+                                                        </div>
+                                                    ) : category.split(';')[1] === 'NEW' ? (
+                                                        <div
+                                                            style={{
+                                                                width: 50,
+                                                                height: 20,
+                                                                borderRadius: '50%',
+                                                                backgroundColor: theme.palette.success.main,
+                                                                display: 'flex',
+                                                                justifyContent: 'center',
+                                                                alignItems: 'center'
+                                                            }}
+                                                        >
+                                                            <Typography variant='caption' style={{ color: 'black' }}>
+                                                                {category.split(';')[1]}
+                                                            </Typography>
+                                                        </div>
+                                                    ) : (
+                                                        <Typography variant='h5'>{category.split(';')[1]}</Typography>
+                                                    )}
+                                                </div>
+                                            ) : (
+                                                <Typography variant='h5'>{category}</Typography>
+                                            )}
+                                        </Typography>
                                     </AccordionSummary>
                                     <AccordionDetails>
                                         <List>

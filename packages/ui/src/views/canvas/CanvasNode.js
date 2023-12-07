@@ -73,7 +73,7 @@ const CanvasNode = ({ data }) => {
         } else if (data.category == 'Document Loaders') {
             return '#9933CC'
         } else if (data.category == 'Embeddings') {
-            return '#9933CC'
+            return '#FFCC00'
         } else if (data.category == 'LLMs') {
             return '#333333'
         } else if (data.category == 'Memory') {
@@ -88,6 +88,12 @@ const CanvasNode = ({ data }) => {
             return '#33CC99'
         } else if (data.category == 'Vector Stores') {
             return '#990033'
+        } else if (data.category == 'Cache') {
+            return '#c65102'
+        } else if (data.category == 'Output Parsers') {
+            return '#702963'
+        } else if (data.category == 'Moderation') {
+            return '#702963'
         }
         return '#000000'
     }
@@ -117,6 +123,12 @@ const CanvasNode = ({ data }) => {
             return '#99FFCC'
         } else if (data.category == 'Vector Stores') {
             return '#FF99B2'
+        } else if (data.category == 'Cache') {
+            return '#FFA500'
+        } else if (data.category == 'Output Parsers') {
+            return '#BF40BF'
+        } else if (data.category == 'Moderation') {
+            return 'C63287'
         }
         return '#000000'
     }
