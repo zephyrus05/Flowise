@@ -226,7 +226,7 @@ const CanvasNode = ({ data }) => {
                                 display: 'flex',
                                 flexDirection: 'row',
                                 alignItems: 'center',
-                                backgroundColor: data.selected ? NodeHeader(data) : NodeHeader(data)
+                                backgroundColor: data.selected ? NodeHeader(data) : NodeBorder(data)
                             }}
                         >
                             <Box style={{ width: 50, marginRight: 10, padding: 5 }}>
@@ -235,7 +235,7 @@ const CanvasNode = ({ data }) => {
                                         ...theme.typography.commonAvatar,
                                         ...theme.typography.largeAvatar,
                                         borderRadius: '50%',
-                                        backgroundColor: data.selected ? NodeHeader(data) : NodeHeader(data),
+                                        backgroundColor: data.selected ? NodeHeader(data) : NodeBorder(data),
                                         cursor: 'grab'
                                     }}
                                 >
