@@ -22,14 +22,14 @@ import { flowContext } from 'store/context/ReactFlowContext'
 const CardWrapper = styled(MainCard)(({ theme }) => ({
     background: theme.palette.card.main,
     color: theme.darkTextPrimary,
-    border: 'solid 1px',
-    borderColor: theme.palette.primary[200] + 75,
+    border: 'solid 2.5px',
+    borderColor: '#2F5597', //theme.palette.primary[200] + 75,
     width: '300px',
     height: 'auto',
     padding: '10px',
     boxShadow: '0 2px 14px 0 rgb(32 40 45 / 8%)',
     '&:hover': {
-        borderColor: theme.palette.primary.main
+        borderColor: '#EC73FF' //theme.palette.card.main
     }
 }))
 
@@ -63,6 +63,76 @@ const CanvasNode = ({ data }) => {
         setOpen(true)
     }
 
+    const NodeBorder = () => {
+        if (data.category == 'Agents') {
+            return '#0066CC'
+        } else if (data.category == 'Chains') {
+            return '#009966'
+        } else if (data.category == 'Chat Models') {
+            return '#CC0033'
+        } else if (data.category == 'Document Loaders') {
+            return '#9933CC'
+        } else if (data.category == 'Embeddings') {
+            return '#FFCC00'
+        } else if (data.category == 'LLMs') {
+            return '#333333'
+        } else if (data.category == 'Memory') {
+            return '#999999'
+        } else if (data.category == 'Prompts') {
+            return '#33CCCC'
+        } else if (data.category == 'Retrievers') {
+            return '#FF9933'
+        } else if (data.category == 'Text Splitters') {
+            return '#FF66B2'
+        } else if (data.category == 'Tools') {
+            return '#33CC99'
+        } else if (data.category == 'Vector Stores') {
+            return '#990033'
+        } else if (data.category == 'Cache') {
+            return '#c65102'
+        } else if (data.category == 'Output Parsers') {
+            return '#702963'
+        } else if (data.category == 'Moderation') {
+            return '#702963'
+        }
+        return '#000000'
+    }
+
+    const NodeHeader = () => {
+        if (data.category == 'Agents') {
+            return ' #66B2FF'
+        } else if (data.category == 'Chains') {
+            return '#66FFB2'
+        } else if (data.category == 'Chat Models') {
+            return '#FF6688'
+        } else if (data.category == 'Document Loaders') {
+            return '#CC99FF'
+        } else if (data.category == 'Embeddings') {
+            return '#FFFF99'
+        } else if (data.category == 'LLMs') {
+            return '#B2B2B2'
+        } else if (data.category == 'Memory') {
+            return '#D9D9D9'
+        } else if (data.category == 'Prompts') {
+            return '#99E6E6'
+        } else if (data.category == 'Retrievers') {
+            return '#FFCC99'
+        } else if (data.category == 'Text Splitters') {
+            return '#FF99CC'
+        } else if (data.category == 'Tools') {
+            return '#99FFCC'
+        } else if (data.category == 'Vector Stores') {
+            return '#FF99B2'
+        } else if (data.category == 'Cache') {
+            return '#FFA500'
+        } else if (data.category == 'Output Parsers') {
+            return '#BF40BF'
+        } else if (data.category == 'Moderation') {
+            return 'C63287'
+        }
+        return '#000000'
+    }
+
     const nodeOutdatedMessage = (oldVersion, newVersion) => `Node version ${oldVersion} outdated\nUpdate to latest version ${newVersion}`
 
     const nodeVersionEmptyMessage = (newVersion) => `Node outdated\nUpdate to latest version ${newVersion}`
@@ -83,10 +153,8 @@ const CanvasNode = ({ data }) => {
         if (componentNode) {
             if (!data.version) {
                 setWarningMessage(nodeVersionEmptyMessage(componentNode.version))
-            } else if (data.version && componentNode.version > data.version) {
-                setWarningMessage(nodeOutdatedMessage(data.version, componentNode.version))
-            } else if (componentNode.badge === 'DEPRECATING') {
-                setWarningMessage('This node will be deprecated in the next release. Change to a new node tagged with NEW')
+            } else {
+                if (componentNode.version > data.version) setWarningMessage(nodeOutdatedMessage(data.version, componentNode.version))
             }
         }
     }, [canvas.componentNodes, data.name, data.version])
@@ -97,7 +165,10 @@ const CanvasNode = ({ data }) => {
                 content={false}
                 sx={{
                     padding: 0,
-                    borderColor: data.selected ? theme.palette.primary.main : theme.palette.text.secondary
+                    borderColor: data.selected ? NodeHeader : NodeBorder,
+                    '&:hover': {
+                        borderColor: data.selected ? NodeHeader : NodeHeader
+                    }
                 }}
                 border={false}
             >
@@ -150,14 +221,21 @@ const CanvasNode = ({ data }) => {
                     placement='right-start'
                 >
                     <Box>
-                        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                        <div
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                backgroundColor: data.selected ? NodeHeader(data) : NodeBorder(data)
+                            }}
+                        >
                             <Box style={{ width: 50, marginRight: 10, padding: 5 }}>
                                 <div
                                     style={{
                                         ...theme.typography.commonAvatar,
                                         ...theme.typography.largeAvatar,
                                         borderRadius: '50%',
-                                        backgroundColor: 'white',
+                                        backgroundColor: data.selected ? NodeHeader(data) : NodeBorder(data),
                                         cursor: 'grab'
                                     }}
                                 >
@@ -172,8 +250,10 @@ const CanvasNode = ({ data }) => {
                                 <Typography
                                     sx={{
                                         fontSize: '1rem',
+                                        font: 'Helvetica Neue',
                                         fontWeight: 500,
-                                        mr: 2
+                                        mr: 2,
+                                        color: '#000000'
                                     }}
                                 >
                                     {data.label}
@@ -197,7 +277,8 @@ const CanvasNode = ({ data }) => {
                                     <Typography
                                         sx={{
                                             fontWeight: 500,
-                                            textAlign: 'center'
+                                            textAlign: 'center',
+                                            color: '#2F5597'
                                         }}
                                     >
                                         Inputs
@@ -209,11 +290,9 @@ const CanvasNode = ({ data }) => {
                         {data.inputAnchors.map((inputAnchor, index) => (
                             <NodeInputHandler key={index} inputAnchor={inputAnchor} data={data} />
                         ))}
-                        {data.inputParams
-                            .filter((inputParam) => !inputParam.hidden)
-                            .map((inputParam, index) => (
-                                <NodeInputHandler key={index} inputParam={inputParam} data={data} />
-                            ))}
+                        {data.inputParams.map((inputParam, index) => (
+                            <NodeInputHandler key={index} inputParam={inputParam} data={data} />
+                        ))}
                         {data.inputParams.find((param) => param.additionalParams) && (
                             <div
                                 style={{
@@ -235,7 +314,8 @@ const CanvasNode = ({ data }) => {
                             <Typography
                                 sx={{
                                     fontWeight: 500,
-                                    textAlign: 'center'
+                                    textAlign: 'center',
+                                    color: '#EC73FF'
                                 }}
                             >
                                 Output

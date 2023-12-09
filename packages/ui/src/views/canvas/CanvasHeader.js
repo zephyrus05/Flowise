@@ -19,7 +19,7 @@ import ViewMessagesDialog from 'ui-component/dialog/ViewMessagesDialog'
 
 // API
 import chatflowsApi from 'api/chatflows'
-
+import Logo from 'assets/images/flowise_logo.png'
 // Hooks
 import useApi from 'hooks/useApi'
 
@@ -58,7 +58,7 @@ const CanvasHeader = ({ chatflow, handleSaveFlow, handleDeleteFlow, handleLoadFl
             handleDeleteFlow()
         } else if (setting === 'analyseChatflow') {
             setAnalyseDialogProps({
-                title: 'Analyse Chatflow',
+                title: 'Analyse Workspace',
                 chatflow: chatflow
             })
             setAnalyseDialogOpen(true)
@@ -176,6 +176,10 @@ const CanvasHeader = ({ chatflow, handleSaveFlow, handleDeleteFlow, handleLoadFl
 
     return (
         <>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                {/* Add your logo here */}
+                <img src={Logo} alt='' style={{ width: '150px', height: '50x', marginRight: '10px' }} />
+            </Box>
             <Box>
                 <ButtonBase title='Back' sx={{ borderRadius: '50%' }}>
                     <Avatar
@@ -316,7 +320,7 @@ const CanvasHeader = ({ chatflow, handleSaveFlow, handleDeleteFlow, handleLoadFl
                         </Avatar>
                     </ButtonBase>
                 )}
-                <ButtonBase title='Save Chatflow' sx={{ borderRadius: '50%', mr: 2 }}>
+                <ButtonBase title='Save Workspace' sx={{ borderRadius: '50%', mr: 2 }}>
                     <Avatar
                         variant='rounded'
                         sx={{
@@ -367,7 +371,7 @@ const CanvasHeader = ({ chatflow, handleSaveFlow, handleDeleteFlow, handleLoadFl
             <SaveChatflowDialog
                 show={flowDialogOpen}
                 dialogProps={{
-                    title: `Save New Chatflow`,
+                    title: `Save New Workspace`,
                     confirmButtonName: 'Save',
                     cancelButtonName: 'Cancel'
                 }}
